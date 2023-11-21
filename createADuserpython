@@ -1,0 +1,47 @@
+import pyad
+from getpass import getpass
+
+def create_ad_user(username, first_name, last_name, sam_account_name, ou, password):
+    try:
+        # Connect to the Active Directory server
+        pyad.set_defaults(ldap_server="ldap://your_ad_server")
+
+        # Specify the Organizational Unit (OU) where the user will be created and change the DC=domain name
+        ou_path = f"OU={ou},DC=contuse,DC=com"
+
+        # Create a new user object, notice to change the domain name @contuse to your domain name
+        new_user = pyad.aduser.ADUser.create_user(
+            first_name,
+            last_name,
+            sam_account_name,
+            ou_path,
+            password,
+            enable=True,
+            optional_attributes={
+                'userPrincipalName': f"{username}@contuse.com",
+                'givenName': username,
+                "firstname": first_name,
+                "lastname": last_name,
+                'displayName': username,
+            }
+        )
+
+        print(f"User '{username}' created successfully.")
+
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+def main():
+    # Get user inputs
+    username = input("Enter the username: ")
+    first_name = input("Enter first name")
+    last_name = input("Enter last name")
+    sam_account_name = input("Enter the SAM account name: ")
+    ou = input("Enter the Organizational Unit (OU): ")
+    password = getpass("Enter the password: ")
+
+    # Call the function to create an Active Directory user
+    create_ad_user(username, sam_account_name, ou, password, first_name, last_name)
+
+if __name__ == "__main__":
+    main()
