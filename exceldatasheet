@@ -1,0 +1,43 @@
+import openpyxl
+#install openpyxl with pip - pip install openpyxl
+
+# Define the file path and create a new Excel workbook if it doesn't exist
+file_path = "C:/Temp/data_entry.xlsx"
+workbook = openpyxl.Workbook()
+
+# Select the default sheet (Sheet 1)
+sheet = workbook.active
+
+# Set the labels in cells A1, B1, C1, D1, and F1
+sheet['A1'] = "Family Name"
+sheet['B1'] = "Service Type"
+sheet['C1'] = "Date of Service"
+sheet['D1'] = "Service Amount"
+sheet['F1'] = "Contact Name"
+sheet['G1'] = "Contact Number"
+
+# Allow users to input values in cells A2, B2, C2, D2, and F2
+user_input_A2 = input("Enter Family Name in cell A2: ")
+sheet['A2'] = user_input_A2
+
+user_input_B2 = input("Enter Service Type in cell B2: ")
+sheet['B2'] = user_input_B2
+
+user_input_C2 = input.__format__("Enter Date of Service in cell C2: ")
+sheet['C2'] = user_input_C2
+
+user_input_D2 = float(input("Enter Service Amount in cell D2: "))
+sheet['D2'] = user_input_D2
+
+user_input_F2 = input("Enter Contact Name in cell F2: ")
+sheet['F2'] = user_input_F2
+
+user_input_G2 = input("Enter Contact Number in cell G2: ")
+sheet['G2'] = user_input_G2
+
+# Save the workbook to the specified file path
+workbook.save(file_path)
+
+print(f"Data saved to {file_path}")
+
+
