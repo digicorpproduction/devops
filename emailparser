@@ -1,0 +1,45 @@
+import requests
+
+# Replace these with your own values
+tenant_id = "YOUR_TENANT_ID"
+client_id = "YOUR_CLIENT_ID"
+client_secret = "YOUR_CLIENT_SECRET"
+username = input("Enter the email username: ")
+
+# Define the query parameters for searching emails
+query = f"from:{username} is:malicious"
+
+# Acquire an access token using client credentials flow
+token_url = f"https://login.microsoftonline.com/{tenant_id}/oauth2/v2.0/token"
+token_data = {
+    "grant_type": "client_credentials",
+    "client_id": client_id,
+    "client_secret": client_secret,
+    "scope": "https://graph.microsoft.com/.default"
+}
+token_response = requests.post(token_url, data=token_data)
+access_token = token_response.json().get("access_token")
+
+if not access_token:
+    print("Failed to acquire access token")
+else:
+    # Make a request to Microsoft Graph API to search emails
+    graph_url = "https://graph.microsoft.com/v1.0/me/messages"
+    headers = {
+        "Authorization": f"Bearer {access_token}",
+    }
+    params = {
+        "$search": query,
+    }
+    response = requests.get(graph_url, headers=headers, params=params)
+
+    if response.status_code == 200:
+        emails = response.json().get("value")
+        if emails:
+            print(f"Malicious emails from {username}:")
+            for email in emails:
+                print(f"Subject: {email['subject']}")
+        else:
+            print(f"No malicious emails found from {username}.")
+    else:
+        print("Failed to fetch emails. Status code:", response.status_code)
