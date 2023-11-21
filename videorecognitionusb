@@ -1,0 +1,39 @@
+import os
+import psutil
+import pygame
+
+# Function to find the most recently recognized USB device
+def find_recently_connected_usb():
+    devices = []
+    for device in psutil.disk_partitions():
+        if 'removable' in device.opts:
+            devices.append(device.device)
+    if devices:
+        return max(devices, key=os.path.getctime)
+    else:
+        return None
+
+# Function to play the first video file on the USB device
+def play_video_on_usb(device_path):
+    for root, dirs, files in os.walk(device_path):
+        for file in files:
+            if file.endswith((".mp4", ".mov", ".avi", ".mkv")):
+                video_path = os.path.join(root, file)
+                pygame.mixer.init()
+                pygame.mixer.music.load(video_path)
+                pygame.mixer.music.play()
+                pygame.event.wait()
+                break
+
+# Main function
+def main():
+    usb_device = find_recently_connected_usb()
+
+    if usb_device:
+        print(f"Playing the first video on USB device: {usb_device}")
+        play_video_on_usb(usb_device)
+    else:
+        print("No USB device found with removable storage.")
+
+if __name__ == "__main__":
+    main()
