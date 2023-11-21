@@ -1,0 +1,13 @@
+print("""You have 3 guesses to guess the hidden number. Type your guess and then press enter to play. "
+      The hidden number is no lower than 11 and greater than 999""")
+secret_number = 167
+guess_count = 0
+guess_limit = 3
+while guess_count < guess_limit:
+    guess = int(input('Guess: '))
+    guess_count += 1
+    if guess == secret_number:
+        print('YOU WON')
+        break
+else:
+     print('Sorry You Failed')
