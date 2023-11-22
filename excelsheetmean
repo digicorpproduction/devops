@@ -1,0 +1,12 @@
+import pandas as pd
+
+# Assuming you have an Excel file with your data
+# You can replace "your_file.xlsx" with your actual file name
+df = pd.read_excel("your_file.xlsx")
+
+# Calculate the mean of the values in Column D and store it in D11
+mean_value = df['Column D'].mean()
+df.loc[10, 'Column D'] = mean_value
+
+# Save the updated DataFrame back to the Excel file
+df.to_excel("your_file.xlsx", index=False)
