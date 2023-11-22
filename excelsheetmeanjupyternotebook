@@ -1,0 +1,17 @@
+import pandas as pd
+
+# Assuming you have a DataFrame with your data
+# You can replace this with your actual data loading method or data structure
+# For example, if you have a CSV file, you can use pd.read_csv("your_file.csv")
+data = {
+    'Column D': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+}
+
+df = pd.DataFrame(data)
+
+# Calculate the mean of the values in Column D and store it in D11
+mean_value = df['Column D'].mean()
+df.loc[10, 'Column D'] = mean_value
+
+# Display the DataFrame with the mean value in D11
+print(df)
