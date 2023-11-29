@@ -1,0 +1,26 @@
+import numpy as np
+from sklearn.linear_model import LinearRegression
+
+# Given data
+years = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24])
+prices = np.array([345000, 450000, 372000, 415000, 523000, 678000, 598000, 612000, 587000, 764000,
+                   682000, 492000, 503000, 790000, 776000, 549000, 659000, 882000, 765000, 1002000,
+                   821000, 878000, 992000, 890000])
+
+# Reshape the data to fit the model
+years_reshaped = years.reshape(-1, 1)
+
+# Train the linear regression model
+model = LinearRegression()
+model.fit(years_reshaped, prices)
+
+# Function to predict future prices
+def predict_price(year):
+    year_input = np.array([year]).reshape(-1, 1)
+    predicted_price = model.predict(year_input)
+    return predicted_price[0]
+
+# Example usage
+user_input_year = int(input("Enter the year for prediction: "))
+predicted_amount = predict_price(user_input_year)
+print(f"The predicted price for year {user_input_year} is ${predicted_amount:.2f}")
