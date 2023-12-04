@@ -1,0 +1,37 @@
+import os
+import shutil
+import subprocess
+import win32com.client
+import ctypes
+
+# Set the paths and filenames
+source_path = r"\\companyA\jdkfiles\jdk3.13.jdk"
+destination_path = r"C:\temp\jdk3.13.jdk"
+installation_log_path = r"C:\temp\installation_log.txt"
+
+# Move JDK file to the local server
+shutil.copy2(source_path, destination_path)
+
+# Install JDK
+install_command = f'{destination_path} /s /v"/qn"'
+subprocess.run(install_command, shell=True)
+
+# Check if installation was successful
+if os.path.exists(installation_log_path):
+    with open(installation_log_path, 'r') as log_file:
+        installation_details = log_file.read()
+else:
+    installation_details = "Installation details not available."
+
+# Create Outlook email
+outlook = win32com.client.Dispatch("Outlook.Application")
+mail = outlook.CreateItem(0)
+mail.To = "Claude.edney@yahoo.com"
+mail.Subject = "Automation complete"
+mail.Body = installation_details
+
+# Send the email
+mail.Send()
+
+# Clean up: Delete the installation log file
+os.remove(installation_log_path)
