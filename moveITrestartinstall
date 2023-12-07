@@ -7,8 +7,8 @@ Start-Sleep -Seconds 10
 # Set the path to the Tomcat bin directory
 $tomcatBinPath = "D:\Program Files\MOVEit Automation Web Admin\Tomcat\bin"
 
-# Run the tomcat9w.exe command to configure Tomcat service
-Start-Process -FilePath "$tomcatBinPath\tomcat9w.exe" -ArgumentList "//FS/MICAdmin" -Wait
+# Run the tomcat.bat file
+Start-Process -FilePath "$tomcatBinPath\tomcat.bat" -Wait
 
 # Set Java initial and maximum memory pool
 $javaConfigPath = "$tomcatBinPath\tomcatw.exe.config"
