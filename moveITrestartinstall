@@ -1,25 +1,25 @@
-# Stop the MoveIT Automation service
-Stop-Service -Name "MoveITAutomationService" -Force
+# Stop the MoveIT Automation Web Admin service
+Stop-Service -Name "MoveITAutomationWebAdmin" -Force
 
 # Wait for the service to stop (adjust sleep duration as needed)
-Start-Sleep -Seconds 60
+Start-Sleep -Seconds 10
 
-# Define the path to the MoveIT Automation installer
-installerPath = "D:\MoveITAutomationInstaller.exe"
+# Set the path to the Tomcat bin directory
+$tomcatBinPath = "D:\Program Files\MOVEit Automation Web Admin\Tomcat\bin"
 
-# Define the installation parameters
-installerArguments = @(
-    "/S",
-    "/DifferentFolder",
-    "/Name=companya",
-    "/Password=78uujiko8"
-)
+# Run the tomcat9w.exe command to configure Tomcat service
+Start-Process -FilePath "$tomcatBinPath\tomcat9w.exe" -ArgumentList "//FS/MICAdmin" -Wait
 
-# Start the MoveIT Automation installer with the specified options and wait for completion
-Start-Process -FilePath $installerPath -ArgumentList $installerArguments -Wait
+# Set Java initial and maximum memory pool
+$javaConfigPath = "$tomcatBinPath\tomcatw.exe.config"
+$javaConfig = Get-Content -Path $javaConfigPath
 
-# Wait for the installer to finish (adjust sleep duration as needed)
-Start-Sleep -Seconds 60
+# Update Java configuration
+$javaConfig = $javaConfig -replace 'Initial memory pool:.*', 'Initial memory pool: 1024M'
+$javaConfig = $javaConfig -replace 'Maximum memory pool:.*', 'Maximum memory pool: 2048M'
 
-# Restart the MoveIT Automation service
-Start-Service -Name "MoveITAutomationService"
+# Apply the changes
+$javaConfig | Set-Content -Path $javaConfigPath
+
+# Start the MoveIT Automation Web Admin service
+Start-Service -Name "MoveITAutomationWebAdmin"
