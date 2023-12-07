@@ -1,0 +1,25 @@
+# Stop the MoveIT Automation service
+Stop-Service -Name "MoveITAutomationService" -Force
+
+# Wait for the service to stop (adjust sleep duration as needed)
+Start-Sleep -Seconds 60
+
+# Define the path to the MoveIT Automation installer
+installerPath = "D:\MoveITAutomationInstaller.exe"
+
+# Define the installation parameters
+installerArguments = @(
+    "/S",
+    "/DifferentFolder",
+    "/Name=companya",
+    "/Password=78uujiko8"
+)
+
+# Start the MoveIT Automation installer with the specified options and wait for completion
+Start-Process -FilePath $installerPath -ArgumentList $installerArguments -Wait
+
+# Wait for the installer to finish (adjust sleep duration as needed)
+Start-Sleep -Seconds 60
+
+# Restart the MoveIT Automation service
+Start-Service -Name "MoveITAutomationService"
