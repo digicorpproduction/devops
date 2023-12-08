@@ -5,10 +5,10 @@ Stop-Service -Name "MoveITAutomationWebAdmin" -Force
 Start-Sleep -Seconds 10
 
 # Set the path to the Tomcat bin directory
-$tomcatBinPath = "D:\Program Files\MOVEit Automation Web Admin\Tomcat\bin"
+# tomcatBinPath = "D:\Program Files\MOVEit Automation Web Admin\Tomcat\bin" / May only need to run batch file
 
 # Run the tomcat.bat file
-Start-Process -FilePath "$tomcatBinPath\tomcat.bat" -Wait
+Start-Process -FilePath "C:\desktop\tomcat.bat" -Wait
 
 # Set Java initial and maximum memory pool
 $javaConfigPath = "$tomcatBinPath\tomcatw.exe.config"
