@@ -1,0 +1,36 @@
+# AppViewX API endpoint for certificate deletion
+$appviewxApiUrl = "https://your_appviewx_api_url/certificates"
+
+# AppViewX API authentication details
+$appviewxUsername = "your_username"
+$appviewxPassword = "your_password"
+
+# Path to the file containing server names
+$clientsFilePath = "C:\Path\To\clients.txt"
+
+# Read server names from the file
+$servers = Get-Content -Path $clientsFilePath
+
+# Function to delete a certificate for a given server
+function Delete-Certificate ($server) {
+    # Construct the full API endpoint for certificate deletion
+    $deleteEndpoint = "$appviewxApiUrl/$server/sbgh76890"  # Assuming sbgh76890 is the certificate ID
+
+    # Define headers for authentication
+    $headers = @{
+        Authorization = "Basic " + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes("$appviewxUsername:$appviewxPassword"))
+    }
+
+    # Send DELETE request to AppViewX API
+    try {
+        Invoke-RestMethod -Uri $deleteEndpoint -Method Delete -Headers $headers -ErrorAction Stop
+        Write-Host "Certificate sbgh76890 deleted successfully for server $server."
+    } catch {
+        Write-Host "Error deleting certificate for server $server: $_"
+    }
+}
+
+# Iterate through each server and delete the certificate
+foreach ($server in $servers) {
+    Delete-Certificate -server $server
+}
