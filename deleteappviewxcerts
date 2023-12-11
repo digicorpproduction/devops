@@ -1,0 +1,25 @@
+# AppViewX API endpoint for certificate deletion
+$appviewxApiUrl = "https://your_appviewx_api_url/certificates"
+
+# Certificate Serial Number to delete
+$certificateSerialNumber = "sbgh76890"
+
+# AppViewX API authentication details
+$appviewxUsername = "your_username"
+$appviewxPassword = "your_password"
+
+# Construct the full API endpoint for certificate deletion
+$deleteEndpoint = "$appviewxApiUrl/$certificateSerialNumber"
+
+# Define headers for authentication
+$headers = @{
+    Authorization = "Basic " + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes("$appviewxUsername:$appviewxPassword"))
+}
+
+# Send DELETE request to AppViewX API
+try {
+    Invoke-RestMethod -Uri $deleteEndpoint -Method Delete -Headers $headers -ErrorAction Stop
+    Write-Host "Certificate with Serial Number '$certificateSerialNumber' deleted successfully."
+} catch {
+    Write-Host "Error deleting certificate: $_"
+}
