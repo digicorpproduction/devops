@@ -1,0 +1,20 @@
+# Specify the email address you want to check
+$emailAddress = "user@example.com"
+
+# Connect to the Exchange Online PowerShell session (adjust as needed)
+# Replace "your_admin_account" and "your_password" with your admin credentials
+$UserCredential = Get-Credential -UserName "your_admin_account" -Message "Enter your password"
+$Session = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri http://your_exchange_server/PowerShell/ -Authentication Kerberos -Credential $UserCredential
+Import-PSSession $Session -DisableNameChecking -AllowClobber -ErrorAction Stop
+
+# Get mailbox permissions for the specified email address
+$mailboxPermissions = Get-MailboxPermission -Identity $emailAddress
+
+# Display the permissions
+Write-Host "Permissions for $emailAddress:"
+foreach ($permission in $mailboxPermissions) {
+    Write-Host "$($permission.User.DisplayName) has $($permission.AccessRights) access."
+}
+
+# Disconnect from the Exchange Online PowerShell session
+Remove-PSSession $Session
