@@ -1,0 +1,41 @@
+import subprocess
+
+def validate_storage_location(hostname, storage_location):
+    # Define the storage locations and their corresponding paths
+    storage_locations = {
+        'vny': '/path/to/vny/storage',
+        'cpm': '/path/to/cpm/storage',
+        'ams': '/path/to/ams/storage'
+    }
+
+    # Validate if the storage location is valid
+    if storage_location not in storage_locations:
+        print(f"Error: Invalid storage location '{storage_location}'.")
+        return None
+
+    # Validate if the hostname corresponds to the correct storage location
+    expected_path = storage_locations[storage_location]
+    command = f"rsync --dry-run -e 'ssh -o StrictHostKeyChecking=no' {hostname}:/source/path/ {expected_path}"
+
+    try:
+        subprocess.run(command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        return expected_path
+    except subprocess.CalledProcessError as e:
+        print(f"Error: {e.stderr.strip()}")
+        return None
+
+def main():
+    # Get user input for hostname and storage location
+    hostname = input("Enter the hostname: ")
+    storage_location = input("Enter the storage location (vny, cpm, ams): ")
+
+    # Validate and perform rsync
+    storage_path = validate_storage_location(hostname, storage_location)
+    if storage_path:
+        print(f"Hostname '{hostname}' corresponds to the correct storage location '{storage_location}'.")
+        print(f"Rsync command would be: rsync -e 'ssh -o StrictHostKeyChecking=no' {hostname}:/source/path/ {storage_path}")
+    else:
+        print("Validation failed. Please check the provided information.")
+
+if __name__ == "__main__":
+    main()
