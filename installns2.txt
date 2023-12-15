@@ -1,0 +1,10 @@
+https://studybookz.wordpress.com/2016/01/25/how-to-install-and-run-ns2-in-linux/
+
+NS2 install
+
+Nodejs 
+install solution if github addresses dont work
+https://stackoverflow.com/questions/16904658/node-version-manager-install-nvm-command-not-found
+
+
+https://linuxhint.com/install_use_node-js_ubuntu/

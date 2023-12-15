@@ -1,0 +1,2 @@
+$logPath = "C:\Program Files (x86)\Jenkins\logs\jenkins.log"
+Get-Content $logPath -Tail 20

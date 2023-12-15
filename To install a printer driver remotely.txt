@@ -1,0 +1,4 @@
+To install a printer driver remotely
+
+cmd 
+printui.exe /if /c\[hostname] /m "[Model]" /f "[path to inf file driver]" /r "[Port number]"

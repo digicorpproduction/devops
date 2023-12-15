@@ -1,0 +1,67 @@
+root password
+bhg6hu987Hnjk432a
+
+hostname - digicorpformgenerator
+codecanyon-0tE6xhFg-multipurpose-form-generator-contact-forms-feedback-forms-event-registration-and-many-more
+
+
+convertafiles
+Vhgdfy7ik35lod897w
+
+hdVhgdfy7ik35lod897w
+
+
+online site on lamp server
+exit
+
+
+videocalling
+hjdnughmk76GhdcW76b1kn
+
+changeyourdoc
+bg7t4Jgr5kl618nhvrw7kl
+
+digicorpcloud
+TrghIkj5d329kOnmhy6ujf
+
+Cloud
+ZrfV6hU87klmEdrb51jgty
+install instructions:
+Welcome to Buckty
+Please read this carefuly before proceeding to the installation
+In between the forward steps you will be asked to provide Site related information which is a "required" for database and functionality purpose. 
+https is required for dropbox api to work! , else if you want to use only http then please don't use dropbox api, you can use drive api with http. You can setup Social api's and Google drive , dropbox api inside admin dashboard after the installation is over.
+Also please setup your php.ini according to the file size you allow for your users , if you server does not support large file sizes and you provide large "Max file size" value , it will fail the file to be uploaded.  You can change your php.ini according to what you require.
+
+        
+            upload_max_filesize = 200M
+
+            post_max_size = 200M
+
+            memory_limit: 820M
+
+        
+ 
+Or you can also change them inside .htaccess (if supported) Below rewrite rules inside .htaccess: 
+
+        
+            php_value upload_max_filesize 200M
+
+            php_value post_max_size 200M
+
+            php_value memory_limit: 820M
+
+        
+Also make sure that mode_rewrite mod_rewrite is enabled  for your server , if it's not you can enable it by uncommeting the following line inside httpd.conf file:
+
+    Change:
+    
+        #LoadModule rewrite_module modules/mod_rewrite.so #AddModule mod_rewrite.c
+    
+To:
+LoadModule rewrite_module modules/mod_rewrite.so #AddModule mod_rewrite.c
+ 
+Smtp settings: 
+Please use some smtp service provider to make work emails for Buckty. The service we used and tested is : smtp2go.com . By using the smtp service provider the emails will work without any problem. if any problem occures is please get in touch with us by contact form.
+Please provide valid database details and valid databse name in forward steps. 
+The above system information is a must. if you are ready to proceed with installation please click the below button and fill in the information we ask for.

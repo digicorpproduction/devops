@@ -1,0 +1,23 @@
+Loadbalancer F5
+
+What is a loadbalancer
+- a device that acts as a reverse proxy and distributes network or applicaiton traffice evenly
+and on basis different parameter or performance of server) across a number of servers withc sits behind th load balancer
+
+reverse proxy
+servers are communicating to the load balancer only, based on traffic sent by users 
+to the load balancer 
+
+DNS server's role is to map names to IPs
+
+round robin load balancing using a DNS server
+
+server cluster - load balancer - firewall - DNS Server - client users 
+
+load balancer always monitors the server availability and status, and the content of each device for desired users
+
+load balancer benefits - increase scalability, flexibility, capacity, reduce downtown, increase performance, redundancy
+
+Layer 4 load balancer - layer 4 load balancers distribute connections based on data found on network and trasport layer protocols - UDP, IP, TCP, FTP
+layer 7 load balancer - load balancers distribute connections based upon data found in application layer protocols such as HTTP
+
