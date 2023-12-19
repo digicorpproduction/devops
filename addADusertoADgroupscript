@@ -1,3 +1,5 @@
+Import-Module ActiveDirectory
+
 # Prompt the user to enter the Active Directory username
 $username = Read-Host "Please enter the Active Directory username"
 
@@ -27,3 +29,4 @@ try {
 } catch {
     Write-Host "Failed to add the user '$username' to the group '$groupname'. Error details: $_" -ForegroundColor Red
 }
+
