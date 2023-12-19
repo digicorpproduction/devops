@@ -1,0 +1,29 @@
+# Prompt the user to enter the Active Directory username
+$username = Read-Host "Please enter the Active Directory username"
+
+# Prompt the user to enter the Active Directory group name
+$groupname = Read-Host "Please enter the Active Directory group name"
+
+# Check if the Active Directory user exists
+try {
+    $user = Get-ADUser -Identity $username -ErrorAction Stop
+} catch {
+    Write-Host "The user '$username' does not exist in Active Directory. Exiting script..." -ForegroundColor Red
+    exit
+}
+
+# Check if the Active Directory group exists
+try {
+    $group = Get-ADGroup -Identity $groupname -ErrorAction Stop
+} catch {
+    Write-Host "The group '$groupname' does not exist in Active Directory. Exiting script..." -ForegroundColor Red
+    exit
+}
+
+# Add the user to the group
+try {
+    Add-ADGroupMember -Identity $group -Members $user -ErrorAction Stop
+    Write-Host "The user '$username' has been added to the group '$groupname' successfully." -ForegroundColor Green
+} catch {
+    Write-Host "Failed to add the user '$username' to the group '$groupname'. Error details: $_" -ForegroundColor Red
+}
