@@ -1,0 +1,18 @@
+php sample script for website resize
+
+<?php
+$width = 2345;
+$height = 3567;
+$new_height = 425
+
+//scaling ratio
+$ratio = $new_height/$height;
+
+//function created to meet 100 based px requirement for web
+function roundNextMultiple($val, $multiple) {
+       return ceil($val/$multiple) * $multiple;
+
+};
+
+echo closestMultiple($width * $ratio, 100);
+

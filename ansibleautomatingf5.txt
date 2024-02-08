@@ -1,0 +1,40 @@
+Ansible automating F5 Big IP
+
+Automation model powered by ansible 
+
+Adding nodes to an F5 Big-IP Load balancer
+-automated tasks, less scalable
+
+environment example
+Amazon VPC ROuter
+1. connects directly to the ansible tower
+2. connects to the f5 virtual edition - then connects to host1 and host2 in the web server
+
+Ansible PLaybook example script below
+1 ---
+2 - name: BIG-IP SETUP
+3   hosts: lb           //load balancer, could be loads of loads balancers
+4   connection: local
+5   gather_facts: false
+6
+7   tasks:              //what we want the playbook to perform
+8     - name: CREATE NODES
+9       bigip_node:     //draw on the bigip node module that will power it all 
+10        provider:     //description of parameters that call out details of running the tasks, to add the two nodes to the big IP load balancer
+11          server: "{{private_ip}}"
+12          user:  "{{ansible_user}}"
+13          password: "{{ansible_ssh_pass}}"
+14          server_port: 8443
+15          validate_certs: false
+16         hosts: "{{hostvars[item].ansible_host}}"
+17         name: "{{hostvars[item].inventory_hostname}}"
+18         loop: "{{ groups['web'] }}"
+19
+
+Ansible Tower interface online 
+add nodes from the add node template 
+
+save playbook as a .yml file 
+yellow represents what was changed and the green shows status of ok changes 
+
+launch node template to add more nodes, ansible will tell us we already have 2 nodes because its based on teh defined state of the playbook you definded 

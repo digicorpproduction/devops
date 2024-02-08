@@ -1,0 +1,106 @@
+install redis server 
+https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-redis-on-ubuntu-18-04
+
+App name Appformyresume
+
+
+package- package1
+
+upgrade 
+sudo apt-get dist-upgrade
+
+configure install for software/Netsa tools 
+export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
+
+./configure --enable-applabel
+
+sudo make install
+
+how to create a data directory 
+sudo mkdir /data
+
+to extract a tar file
+tar -zvxf filename
+
+configure with a libfixbuf
+./configure --with-libfixbuf=/usr/local/lib/pkgconfig/ --with-python --enable--ipv6
+//you dont have to have python but it runs great with the package and enabling ipv6 allows inspection of ipv6 traffic
+
+sudo make install
+
+to open up a silk.conf file
+cat <<EOF >>silk.conf
+
+//EOF means end of file, you can use this to end the file of these form of entries
+
+mv silk.conf ld.so.conf.d
+sudo ldconfig
+//this creates a connected path
+
+ make
+sudo make install
+
+ldconfig command connects the library path 
+
+Testing
+To test silk
+rwfilter --version
+
+to test yaf
+yaf --version
+
+analysis pipeline
+pipeline --verison
+
+rayon
+ryscatterplot -help
+
+to open permssions to a file
+chown -R www-data:data /var/log/mod_evasive
+
+mysql
+https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-20-04
+
+setting up virtual host config file
+https://ubuntu.com/tutorials/install-and-configure-apache#4-setting-up-the-virtualhost-configuration-file
+
+http virtual host
+https://httpd.apache.org/docs/2.4/vhosts/examples.html
+
+fiddler and mono for web traffic capture and decryption 
+https://help.webex.com/en-us/WBX56995/How-Do-I-Use-Fiddler-to-Capture-Web-Traffic
+
+remote fiddler traffic capture
+https://docs.telerik.com/fiddler/Configure-Fiddler/Tasks/MonitorRemoteMachine
+
+Skype monitoring for business server dashboard
+https://docs.microsoft.com/en-us/skypeforbusiness/manage/health-and-monitoring/access-monitoring-data
+ps: Get-CsReportingConfiguration 
+ps: (Get-CsUser).count  - shows unique logons
+ps: Get-CsConferencingPolicy | Select-Object Identity, EnableDialInConferencing
+
+another app is currently holding the yum lock
+https://www.golinuxcloud.com/another-app-is-currently-holding-the-yum-lock/
+
+sudo yum update -t 
+log of recent update summary
+
+ps -p processid#   ex ps -p 2809
+to view process id holding up lock
+
+ps -ef | grep processidnumber  ex ps -ef | grep 2809
+to view app holding up yum lock and details
+
+kill -9 processid#   ex kill -9 2809
+this kills the process but could also make the system unusable, best recommendation is to allow process to finish
+
+Ansible install and ad hoc commands
+https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-ansible-on-ubuntu-20-04
+
+how to do web requests and api creation in postman
+https://linuxize.com/post/how-to-install-postman-on-ubuntu-20-04/
+
+
+
+
+ 

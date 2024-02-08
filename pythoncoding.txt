@@ -1,0 +1,11 @@
+Python coding:
+
+open command line
+vim filename.py
+//editor opens and begin coding
+
+Print("Hello World")
+//save file
+
+go to command line
+python3 filename.py

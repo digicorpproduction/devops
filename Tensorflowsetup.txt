@@ -1,0 +1,5 @@
+Tensor flow setup 
+
+install setup
+https://linuxhandbook.com/install-tensorflow-ubuntu/
+

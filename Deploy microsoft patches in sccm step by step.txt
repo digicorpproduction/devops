@@ -1,0 +1,38 @@
+Deploy windows update SCCM
+1. sync software update - 2nd tuesday of each month
+a. right click on sites
+b.right click on primary sites
+c.go to config site component
+-second option sub bit point?
+d. sync schedule, sync it to once a day, 7 is by default
+
+go to monitoring
+software update sync - icon green, look at the date
+
+go to software library, software update, initiate click by right click and initiate sync for software update group - 30 min wait, make sure indicator is green
+
+Create software update group
+go to software library
+software update
+manage current node
+choose update release in the last month, should have all patches in there 
+view all updates
+select all highlighted, right click, create software update group, label it, click create
+go to software update groups and you will see it created
+
+Create software update package
+right click on group
+download
+create package, label it, location:network path, click next, 
+choose a distribution point, click ok, click next, click next allow download from internet, select language, click next until downloading 
+while downloading check for errors reported 
+
+
+
+
+
+
+2. create software update group
+3.create software update package
+4. Deploy
+
