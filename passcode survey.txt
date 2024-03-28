@@ -1,0 +1,97 @@
+Simple code structure written by Claude Edney
+Passcoded survey - passcode = K$ystone7
+
+using System;
+
+namespace Anothergreatscript
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            var code = "";
+
+            while (code != "K$ystone7")
+            {
+                Console.WriteLine("What is the passcode?");
+                code = Console.ReadLine();
+
+                if (code == "K$ystone7")
+                {
+                    Console.WriteLine("Authenticated Please continue to answer the survey");
+                }
+
+                else if (code != "K$ystone7") 
+                {
+                    Console.WriteLine("Not Authenticated, Try Again");
+                }
+            }
+
+
+
+
+            Console.WriteLine("What is your name?");
+            var name = Console.ReadLine();
+
+            Console.WriteLine("Your name is: {0}", name);
+
+            Console.WriteLine("What is your age?");
+            var age = Console.ReadLine();
+
+           
+            Console.WriteLine("What is your Location?");
+               var Location = Console.ReadLine();
+
+            if(Location == "")
+            {
+                Console.WriteLine("Please Type in a valid entry and press enter again");
+                Location = Console.ReadLine();
+            }
+
+            Console.WriteLine("How many years experience do you have?");
+            var years = Console.ReadLine();
+
+            Console.WriteLine("What is your month were you born?");
+            var month = Console.ReadLine();
+
+            Console.WriteLine("Thank you for participating in this survey, This code was written by Claude Edney");
+
+            Console.WriteLine("Your name is: {0}", name);
+            Console.WriteLine("Your age is: {0}", age);
+            Console.WriteLine("Your location is: {0}", Location);
+            Console.WriteLine("Your years of experience are: {0}", years);
+            Console.WriteLine("You were born in the month of: {0}", month);
+
+            if (years == "10")
+            {
+                Console.WriteLine("You are an expert");
+            }
+
+            else if (years == "5")
+            {
+                Console.WriteLine("You are an intermediate");
+            }
+
+            else if (years == "2")
+            {
+                Console.WriteLine("You are a beginner");
+            }
+
+            if (Location == "Philadelphia")
+            {
+                Console.WriteLine("You are local");
+            }
+
+            if (Location == "Camden")
+            {
+                Console.WriteLine("You are local");
+            }
+
+            if (Location == "Springfield")
+            {
+                Console.WriteLine("You are local");
+            }
+        }
+    }
+}

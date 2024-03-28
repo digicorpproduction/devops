@@ -1,0 +1,57 @@
+plesk migration notes
+https://support.plesk.com/hc/en-us/articles/12377592071959
+
+#/usr/local/psa/admin/sbin/modules/panel-migrator/plesk-migrator generate-migration-list
+
+migration-list file inside below
+/usr/local/psa/var/modules/panel-migrator/sessions/migration-session/
+
+hosting description yaml file 
+https://docs.plesk.com/en-US/obsidian/migration-guide/migrating-from-custom-hosting/sample-hosting-description-files.75605/
+
+Advaned migration mode
+https://docs.plesk.com/en-US/obsidian/migration-guide/migrating-from-supported-hosting-platfoms/advanced-migration-mode.77166/
+
+Additionally, the Plesk Migrator distribution includes the schema.json file listing all available hosting description parameters. It can be found in the following directories:
+
+(Linux) /usr/local/psa/admin/plib/modules/panel-migrator/backend/lib/python/parallels/plesk/hosting_description/
+(Windows) %plesk_dir%admin\plib\modules\panel-migrator\backend\lib\python\parallels\plesk\hosting_description\
+
+What is checked
+The file is validated successfully if all of the below are true:
+
+The hosting description file exists and is readable.
+The hosting description file is a valid YAML or JSON file.
+The hosting description file structure is valid (for example, ‘login’ and ‘password’ fields are supplied for every declared customer account).
+Certain conditions for the objects to be migrated are met (for example, every mailbox to be migrated belongs to a domain).
+All the files and directories to be migrated are present on the file system.
+Manual hosting description file validation
+To validate your hosting description file without initiating a migration, run the following commands:
+
+On Linux:
+/usr/local/psa/admin/sbin/modules/panel-migrator/plesk-migrator validate
+On Windows:
+%plesk_dir%admin/plib/modules/panel-migrator/backend/plesk-migrator.bat validate
+
+
+
+
+
+
+
+
+
+
+
+
+
+plesk migration on github
+https://github.com/digicorpproduction/pleskmigration
+
+echo "# pleskmigration" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/digicorpproduction/pleskmigration.git
+git push -u origin main

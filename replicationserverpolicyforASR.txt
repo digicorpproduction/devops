@@ -1,0 +1,11 @@
+Sure, here is an example of a replication policy for an on-premise server migration to Azure using Azure Site Recovery (ASR):
+
+# Create a replication policy for your server
+$ReplicationPolicyName = "MyReplicationPolicy"
+$PolicyArgs = @{
+    Name = $ReplicationPolicyName
+    RecoveryPointRetentionRangeInHours = 24
+    ApplicationConsistentSnapshotFrequencyInHours = 4
+    InitialReplicationDurationInHours = 24
+}
+New-AzureRmSiteRecoveryPolicy -InputObject $PolicyArgs

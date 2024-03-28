@@ -1,0 +1,22 @@
+Python Notes
+shebang
+#-she
+!-bang
+file path to the python interpreter 
+/usr/bin/env
+
+-file path to interpreter is only read on Mac, its is a Unix based command, usually ignored on Win systems 
+
+
+Statments - units of execution
+expression - unit of evaluation
+
+expressions - anything that returns or assigns a value
+ex. x = y | x * y | (x, y) - this is a tuple, agreggate value | simple value x | True - built in constant value | f() - function call, all funciton calls return a value even if it is none
+
+statement - is a line of code, does not require an : at the end of the line 
+
+ctrl + shift + r to shortcut runing python 
+ two statements can be written on the same line if separated with a ;
+ex print('This is Python) ; print('This prints too')
+ 

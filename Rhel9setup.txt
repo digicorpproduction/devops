@@ -1,0 +1,26 @@
+podman setup
+Redhat environment
+database
+mount to failover servers to the persistent shared storage - folder - /var/www/vhost
+
+F5/CDN cache static content
+
+3 servers running apache, podman, wordpress containers
+use an orchestrator of choice
+server A:
+apache, php, wordpress containers
+1. container port 7870
+2.conatiner port 6790
+3. container port 6708
+
+server B.
+apache, php, wordpress containers
+1. container port 6950
+2. container port 9509
+3. container port 9595
+
+server C.
+apache, php, wordpress containers
+1.container port 8769
+2.container port 9569
+3.container port 7373

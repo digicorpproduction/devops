@@ -1,0 +1,110 @@
+YAML
+customers:
+  - login: jsmith
+    password: 123qwe
+    contact_info:
+      name: John Smith
+      email: jsmith@example.com
+    subscriptions:
+      - name: example.com
+        sys_user:
+          login: jsmith
+          password: 123qwe1
+        addon_domains:
+          - name: another.tld
+          - name: other.tld
+        subdomains:
+          - name: s.another.tld
+          - name: s.example.com
+        databases:
+          - type: mysql
+            name: examplecomdb1
+            users:
+              - login: exdbuser1
+                password: qweqwe
+          - type: mysql
+            name: examplecomdb2
+            users:
+              - login: exdbuser2
+                password: eiury
+        mail_service:
+          mail_users:
+            - name: john
+              password: 123qwe
+              disk_quota: 50M
+              spamfilter: true
+              antivirus: none
+            - name: bob
+              password: 123qwe
+              disk_quota: 10M
+            - name: tom
+              password: 123qwe
+              disk_quota: 10M
+      - name: example.net
+        source_webspace_root: /home/sergey/data/
+        source_document_root: /home/sergey/data/www/example.net
+        sys_user:
+          login: serg
+          password: 123qwe
+        databases:
+          - type: mysql
+            name: db3
+            users:
+              - login: db3user
+                password: qweqwe
+  - login: asmith
+    password: 123qwe
+    contact_info:
+      name: Alex Smith
+      email: asmith@example.com
+    subscriptions:
+      - name: example.info
+        source_webspace_root: /home/alexey/data/
+        source_document_root: /home/alexey/data/www/example.info
+        sys_user:
+          login: alexey
+        databases:
+          - type: mysql
+            name: db1
+            users:
+              - login: db1user
+                password: qweqwe
+          - type: mysql
+            name: db2
+            users:
+              - login: db2user
+        mail_service:
+          mail_users:
+            - name: alexey
+              password: 123qwe
+JSON
+{
+  "customers": [
+    {
+      "name": "John Smith",
+      "login": "jsmith",
+      "subscriptions": [
+        {
+          "name": "jsmith.tld",
+          "sys_user": {
+            "login": "johny",
+            "password": "123qwe"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Alex Smith",
+      "login": "alexey",
+      "subscriptions": [
+        {
+          "name": "alex.tld",
+          "sys_user": {
+            "login": "alexsmith",
+            "password": "123qwe"
+          }
+        }
+      ]
+    }
+  ]
+}

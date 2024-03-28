@@ -1,0 +1,37 @@
+# Set local machine up for recovery
+
+# Check if the user is an administrator
+if (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
+    Write-Warning "You do not have Administrator rights to run this script. Please re-run this script as an Administrator."
+    Break
+}
+
+# Stop unnecessary services
+Get-Service -DisplayName "Windows Search", "Superfetch", "Print Spooler" | Stop-Service
+
+# Disable Windows Defender
+Set-MpPreference -DisableRealtimeMonitoring $true
+
+# Create a system restore point
+$date = Get-Date -Format "yyyy-MM-dd_HH-mm-ss"
+$restore_point_name = "Recovery_$date"
+$recovery_group = "System Managed"
+$description = "PowerShell recovery point"
+Checkpoint-Computer -Description $description -RestorePointName $restore_point_name -RestorePointType Modification -SystemState -Confirm:$false
+
+# Backup important files or folders
+$source = "C:\Users\*\Documents"
+$destination = "D:\Backup\Documents"
+Robocopy $source $destination /MIR /ZB /W:5 /R:3
+
+# Clear temporary files and folders
+$temp_folders = @("C:\Temp", "C:\Windows\Temp")
+foreach ($folder in $temp_folders) {
+    Get-ChildItem -Path $folder -Recurse | Remove-Item -Force -Recurse
+}
+
+# Unmount any unused drives
+$drives = Get-WmiObject -Class Win32_Volume -Filter "DriveType=3" | Where-Object { $_.DriveLetter -notin @("C:", "D:") }
+foreach ($drive in $drives) {
+    $drive_letter = $drive.DriveLetter
+    Get-W
