@@ -1,0 +1,32 @@
+name: default
+framework: pytest
+style: class-based
+patterns:
+  test_file: test_${module_name}.py
+  test_class: Test${class_name}
+  test_function: test_${function_name}_${scenario}
+  assertion: assert ${actual} ${comparison} ${expected}, "${message}"
+sections:
+  - imports
+  - setup
+  - normal_cases
+  - edge_cases
+  - error_cases
+templates:
+  imports: |
+    import pytest
+    from ${module_path} import ${class_name}
+
+  class_setup: |
+    class ${test_class}:
+        def setup_method(self):
+            self.${instance_name} = ${class_name}()
+
+  test_function: |
+      def ${test_name}(self):
+          ${test_body}
+
+prompts:
+  normal_cases: "Generate tests for normal usage scenarios"
+  edge_cases: "Generate tests for boundary conditions and edge cases"
+  error_cases: "Generate tests that verify proper error handling"
