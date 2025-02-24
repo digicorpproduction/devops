@@ -1,0 +1,69 @@
+import os
+import json
+import requests
+from dotenv import load_dotenv
+
+class AITestGenerator:
+    def __init__(self):
+        load_dotenv()
+        self.api_key = os.getenv("DEEPSEEK_API_KEY")
+        self.api_url = "https://api.deepseek.com/v1/chat/completions"
+        
+    def extract_code_from_source_file(self, file_path):
+        """Read a source code file."""
+        with open(file_path, 'r') as file:
+            return file.read()
+    
+    def generate_tests_with_prompt(self, prompt):
+        """Generate tests using a specific prompt."""
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {self.api_key}"
+        }
+        
+        payload = {
+            "model": "deepseek-coder",
+            "messages": [
+                {"role": "system", "content": "You are an expert Python developer specializing in test automation."},
+                {"role": "user", "content": prompt}
+            ],
+            "temperature": 0.3,
+            "max_tokens": 4000
+        }
+        
+        try:
+            response = requests.post(self.api_url, headers=headers, data=json.dumps(payload))
+            response.raise_for_status()
+            result = response.json()
+            test_code = result["choices"][0]["message"]["content"]
+            
+            # Extract code if it's wrapped in markdown code blocks
+            if "```python" in test_code and "```" in test_code:
+                test_code = test_code.split("```python")[1].split("```")[0].strip()
+            
+            return test_code
+        
+        except requests.exceptions.RequestException as e:
+            print(f"Error calling DeepSeek AI API: {e}")
+            return None
+    
+    def generate_tests(self, source_code, test_framework="pytest"):
+        """Generate tests without a template (backward compatibility)."""
+        prompt = f"""
+        I need unit tests for the following code using {test_framework}. 
+        Generate comprehensive tests that cover:
+        - Normal use cases
+        - Edge cases
+        - Error cases
+        - Input validation
+        
+        Return ONLY valid Python test code without explanations.
+        
+        Here's the code to test:
+        
+        ```python
+        {source_code}
+        ```
+        """
+        
+        return self.generate_tests_with_prompt(prompt)
