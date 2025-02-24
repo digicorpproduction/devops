@@ -1,0 +1,113 @@
+Extending the AI Generator to Work with Templates
+The enhanced AI test generator is designed to integrate seamlessly with the template system. Let me explain how this code works and why it's important for template-based test generation.
+Core Components
+The enhanced AITestGenerator class extends the basic generator with template-specific functionality:
+pythonCopyclass AITestGenerator:
+    def __init__(self):
+        load_dotenv()
+        self.api_key = os.getenv("DEEPSEEK_API_KEY")
+        self.api_url = "https://api.deepseek.com/v1/chat/completions"
+This initializes the connection to DeepSeek's AI API. The class then provides two primary methods:
+Method 1: Template-Aware Test Generation
+pythonCopydef generate_tests_with_prompt(self, prompt):
+    """Generate tests using a specific prompt."""
+    # API connection code...
+    
+    payload = {
+        "model": "deepseek-coder",
+        "messages": [
+            {"role": "system", "content": "You are an expert Python developer specializing in test automation."},
+            {"role": "user", "content": prompt}
+        ],
+        "temperature": 0.3,
+        "max_tokens": 4000
+    }
+This method is the bridge between templates and the AI. It:
+
+Takes a template-generated prompt as input
+Sets up the DeepSeek API call with a specific system role
+Uses a low temperature (0.3) for more predictable outputs
+Processes the response to extract clean Python code
+
+The low temperature setting is crucial because we want consistent, deterministic test code that follows our template patterns.
+Method 2: Backward Compatibility
+pythonCopydef generate_tests(self, source_code, test_framework="pytest"):
+    """Generate tests without a template (backward compatibility)."""
+    prompt = f"""
+    I need unit tests for the following code using {test_framework}. 
+    Generate comprehensive tests that cover:
+    - Normal use cases
+    - Edge cases
+    - Error cases
+    - Input validation
+    
+    Return ONLY valid Python test code without explanations.
+    
+    Here's the code to test:
+    
+    ```python
+    {source_code}
+    ```
+    """
+    
+    return self.generate_tests_with_prompt(prompt)
+This maintains compatibility with code that doesn't use templates. It:
+
+Takes source code and a framework as inputs
+Constructs a basic prompt with test coverage requirements
+Delegates to the template-aware method
+
+How Template Integration Works
+The real magic happens through these connections:
+
+Template-to-Prompt Conversion: The TestTemplateManager converts YAML templates into structured prompts that the AI can understand.
+AI Instruction Embedding: The templates contain specific instructions (in the "prompts" section) that tell the AI exactly what kind of tests to generate.
+Post-Processing: After the AI generates tests, the generator applies additional formatting to ensure the tests perfectly match the template patterns.
+
+Why This Approach Is Powerful
+
+Separation of Concerns:
+
+The AI generator focuses on AI interaction
+The template manager handles template structure
+The template generator connects these components
+
+
+Flexibility:
+
+Different prompts can be generated from the same template
+Templates can be swapped without changing the code
+The system works with different AI models
+
+
+Control:
+
+Fine-tune the AI's output by adjusting temperature
+Apply post-processing to enforce strict template adherence
+Extract code blocks from markdown responses
+
+
+
+Practical Implementation Example
+When you call:
+pythonCopyai_generator = AITestGenerator()
+template_manager = TestTemplateManager()
+template_generator = AITestTemplateGenerator(ai_generator, template_manager)
+
+# Generate tests using a template
+tests = template_generator.generate_tests(
+    source_code, 
+    template_name="default",
+    output_file="tests/test_module.py"
+)
+Here's what happens:
+
+The template generator loads the "default" template
+It extracts module information from your source code
+It generates a prompt based on template patterns
+The AI generator sends this prompt to DeepSeek
+The response is processed to extract clean code
+The code is post-processed to ensure template conformity
+The final test code is saved to the specified file
+
+This approach gives you both the flexibility of AI and the consistency of structured templates, resulting in high-quality, standardized test code.
